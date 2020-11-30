@@ -1,0 +1,22 @@
+{
+  "name": "nodesend-backend",
+  "version": "1.0.0",
+  "description": "proyecto nodesend backend",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon ./index.js",
+    "start": "node ./index.js"
+  },
+  "keywords": [
+    "backend",
+    "nodejs"
+  ],
+  "author": "Gabriel Quispe Rosas",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
