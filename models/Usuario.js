@@ -20,3 +20,5 @@ const usuarioSchema = new Schema({
         trim: true,
     }
 });
+
+module.exports = mongoose.model('Usuarios', usuarioSchema);
