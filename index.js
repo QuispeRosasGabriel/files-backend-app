@@ -10,6 +10,9 @@ connectDB();
 // puerto de la app
 const port = process.env.PORT || 4000;
 
+// leer los valores del body
+app.use(express.json());
+
 // rutas de la app
 app.use('/api/usuarios', require('./routes/usuarios'));
 
