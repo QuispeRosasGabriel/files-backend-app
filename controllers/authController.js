@@ -1,5 +1,7 @@
 const Usuario = require('../models/Usuario');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+require('dotenv').config({path: 'global.env'})
 
 exports.autenticarUsuario = async(req,res,next) => {
 
@@ -16,6 +18,15 @@ exports.autenticarUsuario = async(req,res,next) => {
     if(bcrypt.compareSync(password, usuario.password)) {
 
         // Generando JWT
+        const token = jwt.sign({
+            id: usuario._id,
+            nombre: usuario.nombre,
+            email: usuario.email
+        }, process.env.SECRET_KEY, {
+            expiresIn: '8h'
+        });
+
+        res.status(200).json({token});
 
     } else {
         res.status(401).json({msg: 'Password incorrecto'});
