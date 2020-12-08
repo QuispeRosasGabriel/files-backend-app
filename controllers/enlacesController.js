@@ -1,10 +1,15 @@
 const Enlaces = require('../models/Enlace');
 const shortid = require('shortid');
 const bcrypt = require('bcrypt');
+const { validationResult } = require('express-validator'); 
 
 exports.nuevoEnlace = async (req, res, next) => {
 
-    // revisar si hay errores
+      // mostrar mensajes de error de express validator
+      const errores = validationResult(req);
+      if(!errores.isEmpty()) {
+           return res.status(400).json ({errores: errores.array()});
+      }
 
     // almacenar en la bd
     const { nombre_original, password } = req.body;
@@ -36,7 +41,7 @@ exports.nuevoEnlace = async (req, res, next) => {
         return res.status(200).json({ status: 'Ok', msg: `${enlace.url}` });
         next();
     } catch (error) {
-
+        return res.status(500).json({msg: 'Error en el servicio'});
     }
 
 }
