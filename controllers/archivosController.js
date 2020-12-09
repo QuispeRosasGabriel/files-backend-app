@@ -22,7 +22,16 @@ const configMulter = {
     }) 
 }
 
-exports.subirArchivo = async (req,res) => {
-    console.log(req.file);
+const upload = multer(configMulter).single('archivo');
+
+exports.subirArchivo = async (req,res, next) => {
+    upload(req,res, async (error) => {
+        if(!error) {
+            res.json({archivo: req.file.filename, msg: 'Archivo subido correctamente'})
+        } else {
+            res.status(500).json({msg: 'Ocurrió un error al subir el archivo', error});
+            return next();
+        }
+    });
 }
 exports.eliminarArchivo = async (req,res) => {}
