@@ -2,6 +2,8 @@
 // subida de archivos
 const multer = require('multer');
 const shortid = require('shortid');
+const fs = require('fs');
+const { json } = require('express');
 
 exports.subirArchivo = async (req, res, next) => {
 
@@ -37,4 +39,11 @@ exports.subirArchivo = async (req, res, next) => {
         }
     });
 }
-exports.eliminarArchivo = async (req, res) => { }
+exports.eliminarArchivo = async (req, res) => { 
+    try {
+        fs.unlinkSync(__dirname + `/../uploads/${req.archivo}`);
+        res.status(200).json({msg: 'Archivo eliminado correctamente'});
+    } catch (error) {
+        res.status(500).json({msg: 'Ocurrió un error al eliminar el archivo'});
+    }
+}

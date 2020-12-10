@@ -1,5 +1,6 @@
 const express = require('express');
 const enlacesController = require('../controllers/enlacesController');
+const archivosController = require('../controllers/archivosController');
 const router = express.Router();
 const { check } = require('express-validator');
 const auth = require('../middleware/auth');
@@ -11,4 +12,9 @@ router.post('/',
     ],
     auth, enlacesController.nuevoEnlace);
 
+router.get('/:url',
+    enlacesController.obtenerEnlace,
+    archivosController.eliminarArchivo
+    );
+    
 module.exports = router;
